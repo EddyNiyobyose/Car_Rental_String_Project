@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ADMIN DASHBOARD</title>
+    <link href="css/styles1.css" rel="stylesheet" type="text/css" media="all" />
+    <!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">-->
+    <style>
+        /* Add your custom styles here */
+        /* ... */
+    </style>
+</head>
+<header>
+    <!-- Your header content -->
+    <div class="header-container">
+        <div class="logo">
+            <img src="/images/logo2.PNG">
+        </div>
+        <div class="text-1">
+            <p>Admin Dashboard</p>
+        </div>
+        <div class="logout-btn">
+            <a th:href="@{/login}" class="btn btn-sm btn-outline-secondary">Logout</a>
+        </div>
+    </div>
+</header>
+<body>
+<div class="container">
+    <h1 class="text-center">Car Operations</h1>
+    <div class="row">
+        <button class="register-car" th:attr="onclick='window.location.href=\'/registration\''">
+            Register Car
+        </button>
+    </div>
+</div>
+<div class="view-users-btn">
+    <a th:href="@{/view-cars}" class="btn btn-sm btn-outline-secondary">View Registered cars</a>
+</div>
+</div>
+<div class="container">
+    <h1 class="text-center">Users Control</h1>
+    <div class="row">
+        <button class="register-user" th:attr="onclick='window.location.href=\'/signup\''">
+            Register User
+        </button>
+    </div>
+    <div class="view-users-btn">
+        <a th:href="@{/view-users}" class="btn btn-sm btn-outline-secondary">View Registered Users</a>
+    </div>
+</div>
+</div>
+<div class="container">
+    <h1 class="text-center">Rentals control</h1>
+    <div class="row">
+        <button class="register-rental" th:attr="onclick='window.location.href=\'/rental-form\''">
+            Register Rental
+        </button>
+    </div>
+    <div class="view-users-btn">
+        <a th:href="@{/view-rentals}" class="btn btn-sm btn-outline-secondary">View Registered Rentals</a>
+    </div>
+</div>
+</div>
+</div>
+</body>
+<footer>
+    <!-- Your footer content -->
+    <div class="footer-container">
+        <nav class="nav-links">
+            <p>&copy;All rights reserved 2023 Kizigenza Rental car</p>
+            <p><i>don't dream it, drive it</i></p>
+        </nav>
+    </div>
+</footer>
+</html>

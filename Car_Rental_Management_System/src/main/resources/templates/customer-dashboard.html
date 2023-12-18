@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>CUSTOMER DASHBOARD</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Your custom body styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        /* Add your other body styles here */
+
+        /* Rest of your CSS for car cards, buttons, etc. */
+        /* ... */
+
+        /* Header and Footer Styles */
+        .header-container {
+            background-color: #292828; /* Grey color */
+            color: #fff; /* Text color */
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .site-footer {
+            background-color: #292828; /* Grey color */
+            color: #fff; /* Text color */
+            display: flex;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 0px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn.btn-outline-secondary {
+            border: 1px solid #0056b3; /* Blue border */
+            background-color: #0056b3; /* Blue background */
+            color: #fff; /* White text */
+        }
+
+        .btn.btn-outline-secondary:hover {
+            background-color: #004080; /* Darker blue on hover */
+        }
+        /* ... Other styles ... */
+    </style>
+</head>
+<body>
+<header>
+    <!-- Your header content -->
+    <div class="header-container">
+        <div class="logo">
+            <img src="/images/logo2.PNG">
+        </div>
+        <nav class="nav-links">
+            <ul>
+                <li><a th:href="@{/index}">Home</a></li>
+                <li><a th:href="@{/about}">About Us</a></li>
+                <li><a th:href="@{/contact}">Contact Us</a></li>
+            </ul>
+        </nav>
+        <div class="logout-btn">
+            <!-- Add your logout button here -->
+            <a th:href="@{/login}" class="btn btn-sm btn-outline-secondary">Logout</a>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <h1 class="text-center">Registered Cars List</h1>
+
+    <!-- Search form -->
+    <form th:action="@{/search-car}" method="post" class="mb-3">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Enter Plate Number" name="plateNumber" required/>
+            <div class="input-group-append">
+                <button class="book-btn" type="submit">Search</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Display registered cars as cards -->
+    <div class="row">
+        <!-- Loop through registered cars and display each card -->
+        <div th:each="car : ${cars}" class="col-md-4">
+            <div class="car-card">
+                <!-- Displaying the image (you may need to adjust this based on how you store images) -->
+                <img th:src="${car.image}" alt="Car Image" class="car-image">
+
+                <!-- Display car details -->
+                <div class="car-details">
+                    <p><strong>Car Id:</strong> <span th:text="${car.id}"></span></p>
+                    <p><strong>Plate Number:</strong> <span th:text="${car.plateNumber}"></span></p>
+                    <p><strong>Model:</strong> <span th:text="${car.model}"></span></p>
+                    <p><strong>Year:</strong> <span th:text="${car.year}"></span></p>
+                    <p><strong>Status:</strong> <span th:text="${car.available}"></span></p>
+                    <p><strong>Customer ID:</strong> <span th:text="${car.customer.id}"></span></p>
+
+                    <!-- Book button and form -->
+                    <form th:action="@{/book-car}" method="post">
+                        <input type="hidden" name="carId" th:value="${car.id}" />
+                        <button class="book-btn" type="submit">Book</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Show message if no cars are registered -->
+        <div th:if="${#lists.isEmpty(cars)}" class="col-md-12">
+            <p>No Cars registered</p>
+        </div>
+    </div>
+
+<!--    <div class="back-btn">-->
+<!--        <a th:href="@{'/index-page'}" class="btn btn-sm btn-outline-secondary">Back to Dashboard</a>-->
+<!--    </div>-->
+</div>
+<!-- Your footer content if needed -->
+<footer class="site-footer">
+    <div class="container">
+        <p>&copy;All rights reserved 2023 Kizigenza Rental car</p>
+        <p><i>don't dream it, drive it</i></p>
+    </div>
+</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

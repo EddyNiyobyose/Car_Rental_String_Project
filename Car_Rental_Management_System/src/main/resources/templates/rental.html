@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Registered Users</title>
+    <link href="css/styles1.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- Add other stylesheets or scripts if needed -->
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center">Registered Users List</h1>
+
+    <!-- Search bar -->
+    <div class="row mb-3">
+        <div class="col-md-6 offset-md-3">
+            <form th:action="@{/view-rentals}" method="get">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search by Username" name="username"/>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <table class="table">
+        <!-- Table header -->
+        <thead>
+        <tr>
+            <th>Rental Id</th>
+            <th>car</th>
+            <th>customer</th>
+            <th>rental Date</th>
+            <th>return Date</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <!-- Table body -->
+        <tbody>
+        <!-- Loop through users and display each row -->
+        <tr th:each="rent : ${rentals}">
+            <!-- Display rental details -->
+            <td th:text="${rent.id}"></td>
+            <td th:text="${rent.car.plateNumber}"></td>
+            <td th:text="${rent.customer.username}"></td>
+            <td th:text="${#temporals.format(rent.rentalDate, 'yyyy-MM-dd')}"></td>
+            <td th:text="${#temporals.format(rent.returnDate, 'yyyy-MM-dd')}"></td>
+            <td>
+                <!-- Buttons for edit and delete actions -->
+                <a th:href="@{'/edit/' + ${rent.id}}">Edit</a>
+                <a th:href="@{/rental/{rentalId}/delete(rentalId=${rent.id})}">Delete</a>
+            </td>
+        </tr>
+        <!-- Show message if no rentals are registered -->
+        <tr th:if="${#lists.isEmpty(rents)}">
+            <td colspan="5">No Rentals registered</td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="back-btn">
+        <a th:href="@{'/admin-dashboard'}" class="btn btn-sm btn-outline-secondary">Back to Dashboard</a>
+    </div>
+</div>
+</body>
+</html>
